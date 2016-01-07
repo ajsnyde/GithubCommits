@@ -8,12 +8,14 @@ public class Visual {
 	final static int BUFFER = 10;
 	public static JPanel displayPanel = new Canvas();      // graphics are drawn here
 	static boolean update = true;
+	static Color[][] colors = {{new Color(188,188,188),new Color(255,188,188),new Color(255,168,168),new Color(255,126,126),new Color(255,84,84),new Color(255,42,42),new Color(255,0,0)}};
 	
 	public static class Canvas extends JPanel {
 		// all drawing on this canvas is auto-scaled
 		// based on current size.
 		
 		public void paintComponent(Graphics g){
+			
 			ArrayList<Day> calendar = new ArrayList<Day>();
 			for(int i = 0; i<58; ++i)
 				calendar.add(new Day(new Date(), 2));
@@ -26,10 +28,12 @@ public class Visual {
 			
 			if(update){
 				displayPanel.repaint();
+				update(g,w,h);
+				update = false;
 				}
 			g.setColor(Color.RED);
 			//g.fillRoundRect(0, 0, w, h, 20, 20);
-			update(g,w,h);
+			
 		}
 		
 		public void drawDays(Graphics g, ArrayList<Day> in) {
@@ -43,6 +47,7 @@ public class Visual {
 			else
 				size = x_size;
 				for(int i = in.get(0).getDay(); i<in.size(); ++i) {
+					g.setColor(levelToColor(in.get(i).getLevel()));
 					g.fillRect(BUFFER+(int)((i/7)*size*1.11),BUFFER+(int)((i%7)*size*1.11),size,size);
 				}
 			
@@ -73,15 +78,8 @@ public class Visual {
 		}
 		
 		public Color levelToColor(int level) {
-			switch (level) {
-			case 0:  return new Color(0,0,0);
-            case 1:  return new Color(0,0,0);
-            case 2:  return new Color(0,0,0);
-            case 3:  return new Color(0,0,0);
-            case 4:  return new Color(0,0,0);
-            case 5:  return new Color(0,0,0);
-            default: return new Color(0,0,0);
-			}
+			int theme = 0;
+			return colors[theme][level];
 		}
 	}
 }
