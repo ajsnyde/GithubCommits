@@ -19,6 +19,8 @@ public class Vis {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
+		Fetcher fetcher = new Fetcher();
+		fetcher.fetch("ajsnyde");
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
