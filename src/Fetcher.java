@@ -1,5 +1,6 @@
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -9,11 +10,10 @@ import java.util.regex.Pattern;
 
 public class Fetcher {
 
-	String fetch(String username){
+	ArrayList<Day> fetch(String username){
 	    String html;
 	    html = fetchHTML(username);
-	    regexHTML(html);
-		return username;	// needs changed
+		return regexHTML(html);	// needs changed
 	}
 	
 	String fetchHTML(String username){
@@ -29,7 +29,9 @@ public class Fetcher {
 	    }
 		return content;
 	}
-	void regexHTML(String html) {
+	ArrayList<Day> regexHTML(String html) {
+		Day day;
+		ArrayList<Day> days = new ArrayList<Day>();
 		String color;
 		int commits;
 		GregorianCalendar date = new GregorianCalendar();
@@ -51,6 +53,9 @@ public class Fetcher {
 			System.out.println(color);
 			System.out.println(commits);
 			System.out.println(date.getTime());
+			day = new Day(date, commits, color);
+			days.add(day);
 		}
+		return days;
 	}
 }

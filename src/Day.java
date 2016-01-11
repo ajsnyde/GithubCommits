@@ -2,6 +2,7 @@ import java.util.Calendar;
 import java.awt.Color;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 /**
  * Created by Alex on 12/8/14.
@@ -10,12 +11,12 @@ public class Day {
 
     private int level;
     private int commitsNumber;
-    private Calendar calendar = Calendar.getInstance();
+    private GregorianCalendar calendar;
 
-    public Day(Date date, int commitsNumber){
-        this.calendar.setTime(date);
+    public Day(GregorianCalendar date, int commitsNumber, String color){
+        this.calendar = date;
         this.commitsNumber = commitsNumber;
-        this.level = (int) (Math.random()*6);
+        this.level = setLevel(color);
     }
 
     static int setLevel(String color){

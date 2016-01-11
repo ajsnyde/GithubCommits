@@ -6,9 +6,12 @@ import javax.swing.*;
 public class Visual {
 	
 	final static int BUFFER = 10;
+	final static int NUM_DAYS_DISPLAY = 60;
+	static Fetcher fetcher = new Fetcher();
 	public static JPanel displayPanel = new Canvas();      // graphics are drawn here
 	static boolean update = true;
 	static Color[][] colors = {{new Color(188,188,188),new Color(255,188,188),new Color(255,168,168),new Color(255,126,126),new Color(255,84,84),new Color(255,42,42),new Color(255,0,0)}};
+	static ArrayList<Day> days = new ArrayList<Day>();	
 	
 	public static class Canvas extends JPanel {
 		// all drawing on this canvas is auto-scaled
@@ -16,13 +19,10 @@ public class Visual {
 		
 		public void paintComponent(Graphics g){
 			
-			ArrayList<Day> calendar = new ArrayList<Day>();
-			for(int i = 0; i<58; ++i)
-				calendar.add(new Day(new Date(), 2));
+			days = fetcher.fetch("ajsnyde");
 			
 			super.paintComponent(g);
-			
-			drawDays(g, calendar);
+			drawDays(g, days);
 			int w = getWidth();
 			int h = getHeight();
 			
@@ -32,8 +32,6 @@ public class Visual {
 				update = false;
 				}
 			g.setColor(Color.RED);
-			//g.fillRoundRect(0, 0, w, h, 20, 20);
-			
 		}
 		
 		public void drawDays(Graphics g, ArrayList<Day> in) {
@@ -50,26 +48,6 @@ public class Visual {
 					g.setColor(levelToColor(in.get(i).getLevel()));
 					g.fillRect(BUFFER+(int)((i/7)*size*1.11),BUFFER+(int)((i%7)*size*1.11),size,size);
 				}
-			
-			//g.fillRect(10,10,40,40);
-			//g.fillRect(10,10,40,40);
-			
-			
-			/*
-			int x = 5;
-			int y;
-			int i = 0; 
-			int x_inc = (getWidth()/(in.size()/7))-5;
-			int y_inc = ((getHeight()-40)/7)-5;
-			for(Day day:in) {
-				i++;
-				y = (y_inc*day.getDay())+5;
-				x = (x_inc*(i/7))+5;
-				
-				g.setColor(levelToColor(day.getLevel()));
-				g.fillRect(x, y, x_inc, x_inc);
-			}
-			*/
 		}
 		
 		
