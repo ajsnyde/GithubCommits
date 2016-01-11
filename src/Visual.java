@@ -1,6 +1,5 @@
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Date;
 import javax.swing.*;
 
 public class Visual {

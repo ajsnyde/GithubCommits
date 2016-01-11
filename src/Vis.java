@@ -1,6 +1,4 @@
 import java.awt.EventQueue;
-import java.awt.GraphicsConfiguration;
-import java.awt.Insets;
 import java.awt.geom.RoundRectangle2D;
 import javax.swing.JFrame;
 import java.awt.BorderLayout;
@@ -43,10 +41,13 @@ public class Vis {
 	 */
 	private void initialize() {
 		
+		
+		
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		double screenWidth = screenSize.getWidth();
 		double screenHeight = screenSize.getHeight();
-		int width = 480;
+		int width = 750;	//	Roughly optimal ratio for w/h is 15:2
+		int height = 100;
 		int offset = 25;
 		
 		vis = new JFrame();
@@ -62,7 +63,7 @@ public class Vis {
 		vis.setBackground(Color.WHITE);
 		vis.setUndecorated(true);
 		vis.setOpacity(0.5f);
-		vis.setBounds((int) (screenWidth - offset - width), offset, width, 300);
+		vis.setBounds((int) (screenWidth - offset - width), offset, width, height);
 		vis.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		new Visual();
