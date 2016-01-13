@@ -11,7 +11,7 @@ public class Fetcher {
 	ArrayList<Day> fetch(String username){
 	    String html;
 	    html = fetchHTML(username);
-		return regexHTML(html);	// needs changed
+		return regexHTML(html);
 	}
 	
 	String fetchHTML(String username){
@@ -22,6 +22,7 @@ public class Fetcher {
 	      Scanner scanner = new Scanner(connection.getInputStream());
 	      scanner.useDelimiter("\\Z");
 	      content = scanner.next();
+	      scanner.close();
 	    }catch ( Exception ex ) {
 	        ex.printStackTrace();
 	    }

@@ -4,6 +4,7 @@ import java.util.GregorianCalendar;
 
 /**
  * Created by Alex on 12/8/14.
+ * Modified by Addison Snyder on 1/12/15.
  */
 public class Day {
 
@@ -18,8 +19,8 @@ public class Day {
     }
 
     static int setLevel(String color){
-        // normal color scheme
-
+    	
+        // normal color scheme - applies on Github's side - possible to break unexpectedly if Github changes things up..
         if(color.equals("#eeeeee"))
             return 0;
         if(color.equals("#d6e685"))
@@ -31,8 +32,7 @@ public class Day {
         if(color.equals("#1e6823"))
             return 4;
 
-        // spooky color scheme (only on halloween)
-
+        // spooky color scheme (only applies on halloween - Github side)
         if(color.equals("#eeeeee"))
             return 0;
         if(color.equals("#ffee4a"))
@@ -43,6 +43,9 @@ public class Day {
             return 3;
         if(color.equals("#03001c"))
             return 4;
+        
+        
+        // TODO: calculate level based on stored commit numbers, instead of Github-based colors
 
         throw new IllegalArgumentException("Can't find the color!");
     }

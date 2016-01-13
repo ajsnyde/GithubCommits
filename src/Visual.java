@@ -6,10 +6,13 @@ public class Visual {
 	
 	final static int BUFFER = 10;
 	final static int NUM_DAYS_DISPLAY = 60;
+	final static Color[][] colors = {	//Just getting a feel for structure of this set of colors, both are red themes
+			{new Color(188,188,188),new Color(255,188,188),new Color(255,168,168),new Color(255,126,126),new Color(255,84,84),new Color(255,42,42),new Color(255,0,0)},
+			{new Color(188,188,188),new Color(255,188,188),new Color(255,168,168),new Color(255,126,126),new Color(255,84,84),new Color(255,42,42),new Color(255,0,0)}
+	};
 	static Fetcher fetcher = new Fetcher();
-	public static JPanel displayPanel = new Canvas();      // graphics are drawn here
+	static JPanel displayPanel = new Canvas();      // graphics are drawn here
 	static boolean update = true;
-	static Color[][] colors = {{new Color(188,188,188),new Color(255,188,188),new Color(255,168,168),new Color(255,126,126),new Color(255,84,84),new Color(255,42,42),new Color(255,0,0)}};
 	static ArrayList<Day> days = new ArrayList<Day>();	
 	
 	public static class Canvas extends JPanel {
@@ -30,7 +33,6 @@ public class Visual {
 				update(g,w,h);
 				update = false;
 				}
-			g.setColor(Color.RED);
 		}
 		
 		public void drawDays(Graphics g, ArrayList<Day> in) {
