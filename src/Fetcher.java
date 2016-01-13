@@ -49,9 +49,6 @@ public class Fetcher {
 			color = m.group(1);
 			commits = Integer.parseInt(m.group(2));
 			date.set(Integer.parseInt(m.group(3)), Integer.parseInt(m.group(4)), Integer.parseInt(m.group(5)));
-			System.out.println(color);
-			System.out.println(commits);
-			System.out.println(date.getTime());
 			day = new Day(date, commits, color);
 			days.add(day);
 		}

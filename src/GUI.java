@@ -9,21 +9,25 @@ import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.JCheckBox;
 import javax.swing.JSlider;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.event.ChangeListener;
+import javax.swing.event.ChangeEvent;
 
 public class GUI {
 
 	private JFrame frame;
 	private JTextField txtAjsnyde;
-
-	/**
-	 * Launch the application.
-	 */
+	static VisualContainer visualContainer;
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
 					GUI window = new GUI();
 					window.frame.setVisible(true);
+					visualContainer = new VisualContainer();
+					visualContainer.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -31,20 +35,15 @@ public class GUI {
 		});
 	}
 
-	/**
-	 * Create the application.
-	 */
 	public GUI() {
+
 		initialize();
 	}
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
 	private void initialize() {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 450, 300);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
 		JPanel panel = new JPanel();
 		panel.setToolTipText("Entering zero disables updates");
@@ -71,12 +70,23 @@ public class GUI {
 		spinner.setBounds(128, 55, 47, 20);
 		panel.add(spinner);
 		
-		JCheckBox chckbxManipulateMode = new JCheckBox("Manipulate Mode");
+		final JCheckBox chckbxManipulateMode = new JCheckBox("Manipulate Mode");
+		chckbxManipulateMode.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				visualContainer.manipulate(chckbxManipulateMode.isSelected());	// broken
+			}
+		});
 		chckbxManipulateMode.setToolTipText("Manipulate mode adds conventional window elements and temporarily allows the user to move and resize the app. Opacity is forced to 1.0 for compatibility reasons.");
 		chckbxManipulateMode.setBounds(10, 127, 117, 38);
 		panel.add(chckbxManipulateMode);
 		
-		JSlider slider = new JSlider();
+		final JSlider slider = new JSlider();
+		slider.setToolTipText("");
+		slider.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent arg0) {
+				visualContainer.setOpacity((float)(slider.getValue()/100.0));
+			}
+		});
 		slider.setMinorTickSpacing(5);
 		slider.setMajorTickSpacing(20);
 		slider.setPaintTicks(true);
