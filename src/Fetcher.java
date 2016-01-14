@@ -7,8 +7,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Fetcher {
-
-	ArrayList<Day> fetch(String username){
+	static String username = "ajsnyde";
+	
+	ArrayList<Day> fetch(){
 	    String html;
 	    html = fetchHTML(username);
 		return regexHTML(html);
@@ -24,7 +25,9 @@ public class Fetcher {
 	      content = scanner.next();
 	      scanner.close();
 	    }catch ( Exception ex ) {
+	    	System.out.println("Could not retrieve Github data! This may be due to network issues, or invalid username!");
 	        ex.printStackTrace();
+	        content = "";
 	    }
 		return content;
 	}

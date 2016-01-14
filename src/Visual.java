@@ -15,13 +15,13 @@ public class Visual {
 	static boolean update = true;
 	static ArrayList<Day> days = new ArrayList<Day>();	
 	
+	@SuppressWarnings("serial")
 	public static class Canvas extends JPanel {
 		// all drawing on this canvas is auto-scaled
 		// based on current size.
 		
 		public void paintComponent(Graphics g){
-			
-			days = fetcher.fetch("ajsnyde");
+			days = fetcher.fetch();
 			
 			super.paintComponent(g);
 			drawDays(g, days);

@@ -8,7 +8,7 @@ import javax.swing.JFrame;
 public class VisualContainer {
 
 	private JFrame vis;
-
+	
 	public VisualContainer() {
 		initialize();
 	}
@@ -39,18 +39,25 @@ public class VisualContainer {
 		vis.setVisible(in);
 	}
 	
+	public void refresh() {
+		vis.dispose();
+		vis.setVisible(true);
+	}
+	
 	public void manipulate(boolean in) {
-		
-		vis.setVisible(false);
 		if(in) {
 			vis.setOpacity(1.0f);
 			vis.setShape(null);
+			vis.dispose();
+			vis.setUndecorated(false);
+			vis.setVisible(true);
 		}
-		else
+		else {
+			vis.dispose();
+			vis.setUndecorated(true);
 			vis.setShape(new RoundRectangle2D.Double(0, 0, vis.getBounds().width, vis.getBounds().height, 20, 20));
-		vis.setVisible(false);		// Also tried the deprecated Hide()/Show()
-		vis.setUndecorated(!in);	// Program crashes here, stating that the frame is "displayable", or visible..
-		vis.setVisible(true);
+			vis.setVisible(true);
+		}
 	}
 	
 	public void setOpacity(float in) {

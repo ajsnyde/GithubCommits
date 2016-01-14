@@ -13,6 +13,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
+import javax.swing.JButton;
 
 public class GUI {
 
@@ -106,5 +107,24 @@ public class GUI {
 		spinner_1.setModel(new SpinnerNumberModel(new Integer(300), new Integer(0), null, new Integer(1)));
 		spinner_1.setBounds(163, 170, 47, 20);
 		panel.add(spinner_1);
+		
+		final JCheckBox chckbxDisable = new JCheckBox("Disable");
+		chckbxDisable.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				visualContainer.setVisible(!chckbxDisable.isSelected());
+			}
+		});
+		chckbxDisable.setBounds(128, 135, 97, 23);
+		panel.add(chckbxDisable);
+		
+		JButton btnApply = new JButton("Apply!");
+		btnApply.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Fetcher.username = txtAjsnyde.getText();
+				visualContainer.refresh();
+			}
+		});
+		btnApply.setBounds(239, 14, 89, 23);
+		panel.add(btnApply);
 	}
 }
