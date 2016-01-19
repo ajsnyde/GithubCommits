@@ -1,5 +1,4 @@
 import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import java.awt.BorderLayout;
@@ -14,6 +13,8 @@ import java.awt.event.ActionEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
 import javax.swing.JButton;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class GUI {
 
@@ -56,7 +57,16 @@ public class GUI {
 		lblGithubUsername.setBounds(10, 11, 108, 29);
 		panel.add(lblGithubUsername);
 		
+		final JButton btnApply = new JButton("Apply!");
 		txtAjsnyde = new JTextField();
+		txtAjsnyde.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent arg0) {
+				if(arg0.getKeyCode() == KeyEvent.VK_ENTER){
+					btnApply.doClick();
+				}
+			}
+		});
 		txtAjsnyde.setText("ajsnyde");
 		txtAjsnyde.setBounds(128, 11, 101, 29);
 		panel.add(txtAjsnyde);
@@ -66,7 +76,12 @@ public class GUI {
 		lblDaysToDisplay.setBounds(10, 51, 108, 29);
 		panel.add(lblDaysToDisplay);
 		
-		JSpinner spinner = new JSpinner();
+		final JSpinner spinner = new JSpinner();
+		spinner.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent arg0) {
+				Visual.numDays = (int)spinner.getValue();			
+			}
+		});
 		spinner.setModel(new SpinnerNumberModel(90, 1, 365, 1));
 		spinner.setBounds(128, 55, 47, 20);
 		panel.add(spinner);
@@ -117,7 +132,7 @@ public class GUI {
 		chckbxDisable.setBounds(128, 135, 97, 23);
 		panel.add(chckbxDisable);
 		
-		JButton btnApply = new JButton("Apply!");
+		
 		btnApply.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				Fetcher.username = txtAjsnyde.getText();

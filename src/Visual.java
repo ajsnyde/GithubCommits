@@ -5,7 +5,7 @@ import javax.swing.*;
 public class Visual {
 	
 	final static int BUFFER = 10;
-	final static int NUM_DAYS_DISPLAY = 60;
+	static int numDays = 60;
 	final static Color[][] colors = {	//Just getting a feel for structure of this set of colors, both are red themes
 			{new Color(188,188,188),new Color(255,188,188),new Color(255,168,168),new Color(255,126,126),new Color(255,84,84),new Color(255,42,42),new Color(255,0,0)},
 			{new Color(188,188,188),new Color(255,188,188),new Color(255,168,168),new Color(255,126,126),new Color(255,84,84),new Color(255,42,42),new Color(255,0,0)}
@@ -37,7 +37,7 @@ public class Visual {
 		
 		public void drawDays(Graphics g, ArrayList<Day> in) {
 			
-			int x_size = (int)(.8*(getWidth()/(in.size()/7))); // roughly 70 pix.
+			int x_size = (int)(.8*(getWidth()/(numDays/7))); // roughly 70 pix.
 			int y_size = (int)(.8*(getHeight()/7));
 			int size;
 			
@@ -45,8 +45,8 @@ public class Visual {
 				size = y_size;
 			else
 				size = x_size;
-				for(int i = in.get(0).getDay(); i<in.size(); ++i) {
-					g.setColor(levelToColor(in.get(i).getLevel()));
+				for(int i = in.get(365-numDays).getDay(); i<numDays; ++i) {
+					g.setColor(levelToColor(in.get(365-numDays+i).getLevel()));
 					g.fillRect(BUFFER+(int)((i/7)*size*1.11),BUFFER+(int)((i%7)*size*1.11),size,size);
 				}
 		}
