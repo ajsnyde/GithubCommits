@@ -59,14 +59,6 @@ public class GUI {
 		
 		final JButton btnApply = new JButton("Apply!");
 		txtAjsnyde = new JTextField();
-		txtAjsnyde.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyPressed(KeyEvent arg0) {
-				if(arg0.getKeyCode() == KeyEvent.VK_ENTER){
-					btnApply.doClick();
-				}
-			}
-		});
 		txtAjsnyde.setText("ajsnyde");
 		txtAjsnyde.setBounds(128, 11, 101, 29);
 		panel.add(txtAjsnyde);
@@ -77,32 +69,17 @@ public class GUI {
 		panel.add(lblDaysToDisplay);
 		
 		final JSpinner spinner = new JSpinner();
-		spinner.addChangeListener(new ChangeListener() {
-			public void stateChanged(ChangeEvent arg0) {
-				Visual.numDays = (int)spinner.getValue();			
-			}
-		});
 		spinner.setModel(new SpinnerNumberModel(90, 1, 365, 1));
 		spinner.setBounds(128, 55, 47, 20);
 		panel.add(spinner);
 		
 		final JCheckBox chckbxManipulateMode = new JCheckBox("Manipulate Mode");
-		chckbxManipulateMode.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				visualContainer.manipulate(chckbxManipulateMode.isSelected());	// broken
-			}
-		});
 		chckbxManipulateMode.setToolTipText("Manipulate mode adds conventional window elements and temporarily allows the user to move and resize the app. Opacity is forced to 1.0 for compatibility reasons.");
 		chckbxManipulateMode.setBounds(10, 127, 117, 38);
 		panel.add(chckbxManipulateMode);
 		
 		final JSlider slider = new JSlider();
 		slider.setToolTipText("");
-		slider.addChangeListener(new ChangeListener() {
-			public void stateChanged(ChangeEvent arg0) {
-				visualContainer.setOpacity((float)(slider.getValue()/100.0));
-			}
-		});
 		slider.setMinorTickSpacing(5);
 		slider.setMajorTickSpacing(20);
 		slider.setPaintTicks(true);
@@ -124,22 +101,47 @@ public class GUI {
 		panel.add(spinner_1);
 		
 		final JCheckBox chckbxDisable = new JCheckBox("Disable");
-		chckbxDisable.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				visualContainer.setVisible(!chckbxDisable.isSelected());
-			}
-		});
 		chckbxDisable.setBounds(128, 135, 97, 23);
 		panel.add(chckbxDisable);
+		btnApply.setBounds(239, 14, 89, 23);
+		panel.add(btnApply);
 		
-		
+		txtAjsnyde.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent arg0) {
+				if(arg0.getKeyCode() == KeyEvent.VK_ENTER){
+					btnApply.doClick();
+				}
+			}
+		});
 		btnApply.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				Fetcher.username = txtAjsnyde.getText();
 				visualContainer.refresh();
 			}
 		});
-		btnApply.setBounds(239, 14, 89, 23);
-		panel.add(btnApply);
+		slider.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent arg0) {
+				visualContainer.setOpacity((float)(slider.getValue()/100.0));
+			}
+		});
+		spinner.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent arg0) {
+				Visual.numDays = (int)spinner.getValue();
+				visualContainer.refresh();
+			}
+		});
+		chckbxManipulateMode.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				visualContainer.manipulate(chckbxManipulateMode.isSelected());
+				if(chckbxManipulateMode.isSelected())
+					visualContainer.setOpacity((float)(slider.getValue()/100.0));
+			}
+		});
+		chckbxDisable.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				visualContainer.setVisible(!chckbxDisable.isSelected());
+			}
+		});
 	}
 }
