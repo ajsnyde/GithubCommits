@@ -1,3 +1,4 @@
+package githubCommits;
 import java.util.Calendar;
 import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;

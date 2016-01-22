@@ -1,3 +1,4 @@
+package githubCommits;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
@@ -6,10 +7,9 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Fetcher {
-	static String username = "ajsnyde";
+public class Fetcher {	// Should be able to serve many different Visuals with only one class
 	
-	ArrayList<Day> fetch(){
+	ArrayList<Day> fetch(String username){	// returns list of Days from username
 	    String html;
 	    html = fetchHTML(username);
 		return regexHTML(html);
@@ -31,6 +31,7 @@ public class Fetcher {
 	    }
 		return content;
 	}
+	
 	ArrayList<Day> regexHTML(String html) {
 		Day day;
 		ArrayList<Day> days = new ArrayList<Day>();
@@ -55,6 +56,6 @@ public class Fetcher {
 			day = new Day(date, commits, color);
 			days.add(day);
 		}
-		return days;
+		return days;	// should return 365 days
 	}
 }
