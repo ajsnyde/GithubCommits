@@ -9,12 +9,18 @@ public class Controller {
 	
 	Controller(GUI gui){
 		this.gui = gui;
-		//this.gui.addCreateListener(new createListener());
+		gui.addListener(new createApplyListener());
 	}
 	
 	class createListener implements ActionListener{
 		public void actionPerformed(ActionEvent e) {
 			
+		}
+	}
+	
+	class createApplyListener implements ActionListener{
+		public void actionPerformed(ActionEvent e) {
+			System.out.println(e.getSource());
 		}
 	}
 }

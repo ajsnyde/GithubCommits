@@ -37,13 +37,14 @@ public class TabView extends JPanel {
 		add(btnApply);
 		add(btnKillTab);
 	}
+	
 	@Override
 	public String toString(){
 		return txtUsername.getText();
 	}
 	
 	void addApplyListener(ActionListener createListener) {
-			btnApply.addActionListener(createListener);
+		btnApply.addActionListener(createListener);
 	}
 	void addKillListener(ActionListener createListener) {
 		btnKillTab.addActionListener(createListener);

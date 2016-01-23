@@ -15,8 +15,8 @@ public class GUI {
 	private JFrame frame;
 	private final JButton btnNewTab = new JButton("+");
 	private final JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-	
 	ArrayList<TabView> tabs = new ArrayList<TabView>();
+	JButton btnPlaceholder = new JButton("Placeholder");
 	
 	public GUI() {
 		initialize();
@@ -29,12 +29,20 @@ public class GUI {
 		
 		frame.getContentPane().add(tabbedPane, BorderLayout.CENTER);
 		tabbedPane.addTab("", null, new JPanel());
-		tabbedPane.setTabComponentAt(tabbedPane.getTabCount() - 1, btnNewTab);
+		
+		JButton btnNewButton = new JButton("Placeholder");
+		btnNewButton.setEnabled(false);
 
+		frame.getContentPane().add(btnNewButton, BorderLayout.NORTH);
+		tabbedPane.setTabComponentAt(tabbedPane.getTabCount() - 1, btnNewTab);
+		
+		
+		
 		btnNewTab.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				tabs.add(new TabView());
 				tabs.get(tabs.size()-1).addKillListener(new createKillListener());
+				tabs.get(tabs.size()-1).addApplyListener(new createApplyListener());
 				tabbedPane.addTab(""+tabbedPane.getTabCount(), null, tabs.get(tabs.size()-1));
 			}
 		});
@@ -45,6 +53,18 @@ public class GUI {
 			System.out.println("Removing: " + tabbedPane.getComponentAt(tabbedPane.getSelectedIndex()));
 			tabs.remove(tabbedPane.getComponentAt(tabbedPane.getSelectedIndex()));
 			tabbedPane.remove(tabbedPane.getSelectedIndex());
+			System.out.println("There are now " + tabs.size() + " entities!");
 		}
+	}
+	
+	class createApplyListener implements ActionListener{
+		public void actionPerformed(ActionEvent e) {
+			btnPlaceholder.setText("Apply button Clicked!: " + tabbedPane.getComponentAt(tabbedPane.getSelectedIndex()));
+			btnPlaceholder.doClick();
+		}
+	}
+	
+	void addListener(ActionListener in) {
+		btnPlaceholder.addActionListener(in);
 	}
 }
