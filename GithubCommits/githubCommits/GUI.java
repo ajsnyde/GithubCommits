@@ -179,7 +179,6 @@ public class GUI {
 						frame.setVisible(true);
 				}
 			});
-
 			try {
 				systemTray.add(trayIcon);
 			} catch (Exception e) {
