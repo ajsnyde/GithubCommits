@@ -8,8 +8,9 @@ import java.awt.geom.RoundRectangle2D;
 import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import java.awt.Window.Type;
 
-public class Visual {
+public class Visual implements Runnable{
 	
 	static int buffer = 10;
 	static int numDays = 60;
@@ -19,12 +20,20 @@ public class Visual {
 			{new Color(188,188,188),new Color(255,188,188),new Color(255,168,168),new Color(255,126,126),new Color(255,84,84),new Color(255,42,42),new Color(255,0,0)}
 	};
 	
-	private String username = "ajsnyde";
+	public String username = "ajsnyde";
 	private ArrayList<Day> days = new ArrayList<Day>();	
 	private JFrame vis;
 	private JPanel displayPanel = new Canvas();      // graphics are drawn here
 	
 	public Visual() {
+		
+	}
+	
+	/**
+	 * @wbp.parser.entryPoint
+	 */
+	@Override
+	public void run() {
 		initialize();
 	}
 	
@@ -38,6 +47,7 @@ public class Visual {
 		int offset = 25;
 		
 		vis = new JFrame();
+		vis.setType(Type.UTILITY);
 		
 		vis.setBackground(Color.WHITE);
 		vis.setUndecorated(true);
@@ -46,6 +56,7 @@ public class Visual {
 		vis.setShape(new RoundRectangle2D.Double(0, 0, vis.getBounds().width, vis.getBounds().height, 20, 20));
 		vis.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		vis.getContentPane().add(this.displayPanel, BorderLayout.CENTER);
+		vis.setVisible(true);
 	}
 	
 	public class Canvas extends JPanel {

@@ -1,4 +1,6 @@
 package githubCommits;
+import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
@@ -24,11 +26,15 @@ public class Fetcher {	// Should be able to serve many different Visuals with on
 	      scanner.useDelimiter("\\Z");
 	      content = scanner.next();
 	      scanner.close();
-	    }catch ( Exception ex ) {
-	    	System.out.println("Could not retrieve Github data! This may be due to network issues, or invalid username!");
+	    }catch ( MalformedURLException ex ) {
+	    	System.out.println("Could not retrieve Github data: Bad URL, try removing URL-unsafe characters from your username!");
 	        ex.printStackTrace();
 	        content = "";
-	    }
+	    } catch (IOException e) {
+	    	System.out.println("Could not retrieve Github data: Bad IO, ensure proper connectivity and resource allocation!");
+	        e.printStackTrace();
+	        content = "";
+		}
 		return content;
 	}
 	
